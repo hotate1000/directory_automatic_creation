@@ -8,25 +8,18 @@ import sys
 import traceback
 
 
-tk.Tk().withdraw()
-
-
-# プロジェクト名の記載
-def project_name_description():
-    project_name = sd.askstring("プロジェクト名を入力", "プロジェクト名を入力してください。\nディレクトリ名に利用します。")
-    return project_name
-
-
-# 作成するディレクトリ名
-def create_directory_name():
+# 作成するフォルダ名
+def create_folder_name():
     today = datetime.datetime.now().strftime("%Y%m%d")
-    project_name = project_name_description()
+    project_name = sd.askstring("プロジェクト名を入力", "プロジェクト名を入力してください。\
+                    \
+                    \nディレクトリ名に利用します。")
     if project_name is None:
         sys.exit()  # ディレクトリ選択画面でキャンセル選択
     if project_name == "":
         mb.showinfo("警告", "プロジェクト名を選択してください")  # プロジェクト名が未記載だった場合
-        create_directory_name()
-    directory_names = [
+        create_folder_name()
+    folder_names = [
         "接続情報",
         "契約資料",
         today+"_"+project_name,
@@ -47,11 +40,11 @@ def create_directory_name():
             "99.その他資料"
         ]
     ]
-    return directory_names
+    return folder_names
 
 
 # ディレクトリの選択
-def select_directory():
+def select_folder():
     filepath = fd.askdirectory(
         title="フォルダを作成するディレクトリを選択する",
         initialdir="C:"
@@ -63,11 +56,11 @@ def select_directory():
 
 
 # ディレクトリの作成
-def create_directory():
+def create_folder():
     try:
-        directory_names = create_directory_name()
-        filepath = select_directory()
-        for i in directory_names:
+        folder_names = create_folder_name()
+        filepath = select_folder()
+        for i in folder_names:
             if not isinstance(i, list):
                 d_i = i
             if isinstance(i, list):
@@ -87,5 +80,6 @@ def create_directory():
         print(traceback.format_exc())
 
 
-if __name__ == '__main__':
-    create_directory()
+if __name__ == "__main__":
+    tk.Tk().withdraw()
+    create_folder()
