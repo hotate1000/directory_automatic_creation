@@ -74,7 +74,7 @@ def create_folder():
                         os.makedirs(filepath + "/" + str(d_i) + "/" + str(d_j), exist_ok=False)
             else:
                 os.makedirs(filepath + "/" + str(d_i), exist_ok=False)
-        fd.askopenfilename(initialdir=filepath)
+        mb.showinfo("完了", "処理が無事完了しました。")
     except Exception as e:
         mb.showinfo("エラー", str(e))
         print(traceback.format_exc())
